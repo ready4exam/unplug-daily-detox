@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unplug – Daily Detox</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Unplug">
+    <meta name="theme-color" content="#2d9e6b">
+    <link rel="manifest" href="manifest.json">
+
+  <!-- AppBuilder runtime monitor -->
+  <script>
+    window.onerror = function(msg, src, line, col, err) {
+      try {
+        fetch('http://localhost:3000/api/telemetry/report', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            appPath: window.location.pathname,
+            errorMsg: msg,
+            source: src,
+            line: line,
+            stackTrace: err ? err.stack : ''
+          })
+        });
+      } catch (_) {}
+      return true; // suppress visual error overlay
+    };
+  </script>
+</head>
+<body>
+    <div id="app">
+        <div id="splash-screen" class="screen active">
+            <div class="splash-content">
+                <div class="leaf">🌿</div>
+                <h1>Unplug</h1>
+                <p>One small thing. Less scrolling. More living.</p>
+            </div>
+        </div>
+
+        <div id="age-screen" class="screen">
+            <h2>How old are you?</h2>
+            <p>We'll suggest activities just right for you</p>
+            <div id="age-cards"></div>
+        </div>
+
+        <div id="home-screen" class="screen">
+            <header>
+                <div class="logo">🌿 Unplug</div>
+                <button id="settings-btn">⚙️</button>
+            </header>
+            <div id="greeting"></div>
+            <div id="streak-card"></div>
+            <div id="tasks-section">
+                <h2>Today's Challenges <span id="task-badge">3 tasks</span></h2>
+                <div id="task-list"></div>
+            </div>
+            <div id="progress-container">
+                <div id="progress-text">0 of 3 completed today</div>
+                <div class="bar-bg"><div id="progress-fill"></div></div>
+            </div>
+            <div id="quote-section"></div>
+            <nav id="bottom-nav">
+                <button class="nav-item active" data-target="home">🏠 Today</button>
+                <button class="nav-item" data-target="history">📅 History</button>
+                <button class="nav-item" data-target="badges">🏆 Badges</button>
+            </nav>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>Your Journey</h2>
+            <div id="calendar-grid"></div>
+            <div id="stats-summary"></div>
+            <button class="back-btn">← Back</button>
+        </div>
+
+        <div id="badges-screen" class="screen">
+            <h2>Achievements 🏆</h2>
+            <div id="badges-grid"></div>
+            <button class="back-btn">← Back</button>
+        </div>
+
+        <div id="settings-screen" class="screen">
+            <h2>Settings</h2>
+            <button id="change-age">Change Age Group</button>
+            <button id="reset-data" class="danger">Reset All Data</button>
+            <p class="version">v1.0 - Made with 💚</p>
+            <button class="back-btn">← Back</button>
+        </div>
+    </div>
+    <script src="app.js" defer></script>
+</body>
+</html>
